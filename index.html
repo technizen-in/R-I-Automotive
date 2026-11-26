@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R & I Automotive | Ravenshoe</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#101214;
+    color:#f4f4f4;
+    line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+
+:root{
+    --red:#e53935;
+    --dark:#101214;
+    --dark2:#181b1e;
+    --card:#202428;
+    --light:#f5f5f5;
+    --muted:#aeb2b5;
+}
+
+/* POPUP */
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.86);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    padding:20px;
+}
+.popup-box{
+    max-width:520px;
+    width:100%;
+    background:#fff;
+    color:#242424;
+    border-radius:16px;
+    padding:40px 30px;
+    text-align:center;
+    box-shadow:0 25px 80px rgba(0,0,0,.5);
+}
+.popup-logo{
+    width:58px;
+    height:58px;
+    background:var(--red);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    margin:0 auto 18px;
+    font-size:25px;
+    font-weight:900;
+}
+.popup-box h2{
+    font-size:25px;
+    margin-bottom:12px;
+}
+.popup-box p{
+    color:#666;
+    font-size:14px;
+    margin-bottom:10px;
+}
+.popup-box strong{color:#222}
+.popup-box a{color:#c52c29;font-weight:bold}
+.popup-btn{
+    display:inline-block;
+    background:#151719;
+    color:#fff!important;
+    padding:12px 25px;
+    border-radius:5px;
+    margin-top:15px;
+}
+
+/* HEADER */
+header{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    z-index:10;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 6%;
+}
+.logo{
+    font-weight:900;
+    font-size:24px;
+    letter-spacing:1px;
+}
+.logo span{color:var(--red)}
+nav{
+    display:flex;
+    gap:28px;
+    font-size:14px;
+    font-weight:bold;
+}
+nav a:hover{color:var(--red)}
+
+/* HERO */
+.hero{
+    min-height:690px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(90deg,#0b0c0d 0%,rgba(11,12,13,.91) 45%,rgba(11,12,13,.55) 100%),
+        linear-gradient(135deg,#252a2e,#111);
+}
+.hero:before{
+    content:"";
+    position:absolute;
+    right:-100px;
+    top:100px;
+    width:520px;
+    height:520px;
+    border:70px solid rgba(229,57,53,.08);
+    transform:rotate(18deg);
+}
+.hero-content{
+    width:min(1100px,88%);
+    margin:auto;
+    position:relative;
+    z-index:2;
+}
+.eyebrow{
+    color:var(--red);
+    text-transform:uppercase;
+    letter-spacing:4px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:17px;
+}
+.hero h1{
+    font-size:clamp(48px,7vw,82px);
+    line-height:.98;
+    max-width:800px;
+    font-weight:900;
+    margin-bottom:25px;
+}
+.hero h1 span{color:var(--red)}
+.hero p{
+    max-width:620px;
+    color:#c4c7c9;
+    font-size:18px;
+}
+.hero-buttons{
+    display:flex;
+    gap:13px;
+    flex-wrap:wrap;
+    margin-top:32px;
+}
+.btn{
+    padding:14px 24px;
+    border-radius:5px;
+    font-weight:800;
+    display:inline-block;
+}
+.btn-red{
+    background:var(--red);
+    color:white;
+}
+.btn-dark{
+    border:1px solid #555;
+    color:white;
+}
+.btn:hover{transform:translateY(-2px)}
+
+/* INFO */
+.info{
+    background:var(--red);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+}
+.info-item{
+    padding:20px;
+    text-align:center;
+    border-right:1px solid rgba(255,255,255,.2);
+}
+.info-item:last-child{border:0}
+.info-item small{
+    display:block;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:10px;
+    opacity:.75;
+}
+.info-item strong{font-size:15px}
+
+/* SECTIONS */
+section{padding:90px 6%}
+.container{max-width:1100px;margin:auto}
+.label{
+    color:var(--red);
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+}
+h2{
+    font-size:43px;
+    line-height:1.1;
+    margin-bottom:20px;
+}
+.about{
+    background:#151719;
+}
+.about-grid{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:70px;
+    align-items:center;
+}
+.about p{
+    color:var(--muted);
+    margin-bottom:16px;
+}
+.about-panel{
+    background:#202428;
+    border-left:5px solid var(--red);
+    padding:40px;
+}
+.about-panel h3{
+    font-size:28px;
+    margin-bottom:12px;
+}
+.about-panel p{
+    color:#bbb;
+}
+
+/* SERVICES */
+.services{
+    background:#f1f1f1;
+    color:#17191b;
+}
+.services h2{color:#17191b}
+.center{text-align:center;max-width:720px;margin:0 auto 45px}
+.center p{color:#666}
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+.service{
+    background:white;
+    padding:30px 25px;
+    border-radius:8px;
+    border-top:4px solid #222;
+    transition:.2s;
+}
+.service:hover{
+    border-top-color:var(--red);
+    transform:translateY(-4px);
+}
+.service-icon{
+    font-size:30px;
+    margin-bottom:15px;
+}
+.service h3{
+    margin-bottom:8px;
+}
+.service p{
+    color:#707070;
+    font-size:14px;
+}
+
+/* SPECIAL SECTION */
+.special{
+    background:#202428;
+}
+.special-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+.special-card{
+    padding:35px;
+    border:1px solid #363a3e;
+    background:#181b1e;
+}
+.special-card h3{
+    color:white;
+    margin-bottom:10px;
+}
+.special-card p{
+    color:#aeb2b5;
+    font-size:14px;
+}
+
+/* CTA */
+.cta{
+    background:var(--red);
+    text-align:center;
+    padding:70px 6%;
+}
+.cta h2{color:white}
+.cta p{
+    max-width:650px;
+    margin:0 auto 25px;
+    color:#ffe9e9;
+}
+
+/* TECHNIZEN */
+.tech{
+    background:#fff8ec;
+    color:#292929;
+}
+.tech-box{
+    max-width:1050px;
+    margin:auto;
+    background:white;
+    border:2px solid #d8b16b;
+    border-radius:18px;
+    padding:48px;
+    position:relative;
+    overflow:hidden;
+}
+.ribbon{
+    position:absolute;
+    top:22px;
+    right:-47px;
+    background:#16191b;
+    color:white;
+    padding:8px 55px;
+    font-size:10px;
+    letter-spacing:2px;
+    transform:rotate(35deg);
+}
+.tech h2{color:#202428}
+.tech-text{
+    max-width:780px;
+    color:#625d56;
+    font-size:15px;
+}
+.price{
+    display:inline-block;
+    margin:25px 0;
+    padding:19px 27px;
+    border-radius:9px;
+    background:#f4ead7;
+}
+.price small{display:block;color:#777}
+.price strong{
+    display:block;
+    font-size:32px;
+    color:#202428;
+}
+.tech-list{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:25px;
+}
+.tech-list div{
+    background:#f6f3ed;
+    padding:13px;
+    font-size:13px;
+    border-radius:5px;
+}
+
+/* CONTACT */
+.contact{
+    background:#101214;
+}
+.contact-grid{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:25px;
+}
+.contact-card{
+    background:#202428;
+    padding:35px;
+    border-radius:9px;
+}
+.contact-card h3{
+    font-size:27px;
+    margin-bottom:25px;
+}
+.row{
+    margin-bottom:18px;
+}
+.row small{
+    display:block;
+    color:#888;
+    text-transform:uppercase;
+    font-size:10px;
+    letter-spacing:1px;
+}
+.row a:hover{color:var(--red)}
+.map{
+    min-height:400px;
+    border-radius:9px;
+    overflow:hidden;
+}
+.map iframe{
+    width:100%;
+    height:100%;
+    min-height:400px;
+    border:0;
+}
+
+/* FOOTER */
+footer{
+    background:#080909;
+    padding:30px 6% 20px;
+    color:#888;
+}
+.footer-bottom{
+    text-align:center;
+    font-size:13px;
+    padding-top:20px;
+    border-top:1px solid #252525;
+}
+.footer-bottom a{color:#e85a57}
+
+/* WHATSAPP */
+.whatsapp{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#25D366;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+    z-index:100;
+}
+
+/* MOBILE */
+@media(max-width:800px){
+    nav{display:none}
+    .hero{min-height:620px}
+    .hero h1{font-size:52px}
+    .info{grid-template-columns:1fr}
+    .info-item{
+        border-right:0;
+        border-bottom:1px solid rgba(255,255,255,.2);
+    }
+    .about-grid,
+    .special-grid,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+    .service-grid{grid-template-columns:1fr}
+    .tech-list{grid-template-columns:1fr}
+    section{padding:70px 5%}
+    .tech-box{padding:35px 25px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SAMPLE WEBSITE POPUP -->
+<div class="popup" id="popup">
+    <div class="popup-box">
+
+        <div class="popup-logo">T</div>
+
+        <h2>Sample Website Concept</h2>
+
+        <p>
+            This website is a <strong>sample website concept</strong>
+            created by <strong>Technizen Solutions</strong> for
+            <strong>R & I Automotive</strong>.
+        </p>
+
+        <p>
+            All rights reserved to <strong>Technizen Solutions</strong>.
+        </p>
+
+        <p>
+            Want a professional website for your business?
+            <a href="https://technizen.com.au/promo" target="_blank">
+                technizen.com.au
+            </a>
+        </p>
+
+        <p>
+            WhatsApp:
+            <a href="https://wa.me/61342361236" target="_blank">
+                +61 3 4236 1236
+            </a>
+        </p>
+
+        <a href="#" class="popup-btn" onclick="closePopup();return false;">
+            Continue to Website
+        </a>
+
+    </div>
+</div>
+
+<header>
+    <div class="logo">
+        R <span>&</span> I AUTOMOTIVE
+    </div>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#why">Why Us</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+
+        <div class="eyebrow">Automotive Service · Ravenshoe</div>
+
+        <h1>
+            Reliable Care For Your <span>Vehicle.</span>
+        </h1>
+
+        <p>
+            Professional automotive repair and servicing in Ravenshoe,
+            with practical solutions to help keep your vehicle running
+            safely and reliably.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="tel:+61740976327" class="btn btn-red">
+                Call +61 7 4097 6327
+            </a>
+
+            <a href="#services" class="btn btn-dark">
+                Explore Services
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- INFO -->
+<div class="info">
+
+    <div class="info-item">
+        <small>Location</small>
+        <strong>6 Herbert St, Ravenshoe</strong>
+    </div>
+
+    <div class="info-item">
+        <small>Service</small>
+        <strong>Automotive Repair</strong>
+    </div>
+
+    <div class="info-item">
+        <small>Call Us</small>
+        <strong>+61 7 4097 6327</strong>
+    </div>
+
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+
+    <div class="container about-grid">
+
+        <div>
+            <div class="label">About R & I Automotive</div>
+
+            <h2>Your Local Automotive Partner.</h2>
+
+            <p>
+                R & I Automotive provides automotive repair services
+                from its workshop at Herbert Street, Ravenshoe.
+            </p>
+
+            <p>
+                Whether your vehicle needs routine attention, diagnosis
+                or repairs, having a dependable local automotive service
+                makes vehicle ownership easier.
+            </p>
+
+            <p>
+                Get in touch with the team to discuss your vehicle's
+                requirements.
+            </p>
+        </div>
+
+        <div class="about-panel">
+
+            <h3>Keeping Ravenshoe Moving.</h3>
+
+            <p>
+                Local automotive support for everyday vehicles,
+                maintenance needs and repair requirements.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+
+    <div class="container">
+
+        <div class="center">
+
+            <div class="label">Our Services</div>
+
+            <h2>Automotive Solutions That Keep You Moving</h2>
+
+            <p>
+                Practical automotive services designed around the needs
+                of local drivers and their vehicles.
+            </p>
+
+        </div>
+
+        <div class="service-grid">
+
+            <div class="service">
+                <div class="service-icon">⚙</div>
+                <h3>Vehicle Repairs</h3>
+                <p>
+                    General automotive repair and servicing for everyday
+                    vehicle issues.
+                </p>
+            </div>
+
+            <div class="service">
+                <div class="service-icon">✓</div>
+                <h3>Vehicle Servicing</h3>
+                <p>
+                    Routine servicing and maintenance to help keep your
+                    vehicle performing reliably.
+                </p>
+            </div>
+
+            <div class="service">
+                <div class="service-icon">⌕</div>
+                <h3>Vehicle Diagnostics</h3>
+                <p>
+                    Assistance with identifying vehicle problems and
+                    determining appropriate repair requirements.
+                </p>
+            </div>
+
+            <div class="service">
+                <div class="service-icon">◈</div>
+                <h3>Mechanical Repairs</h3>
+                <p>
+                    Support for common mechanical problems affecting
+                    vehicle performance and reliability.
+                </p>
+            </div>
+
+            <div class="service">
+                <div class="service-icon">▣</div>
+                <h3>Maintenance</h3>
+                <p>
+                    Regular vehicle maintenance to help address issues
+                    before they become bigger problems.
+                </p>
+            </div>
+
+            <div class="service">
+                <div class="service-icon">+</div>
+                <h3>Repair Enquiries</h3>
+                <p>
+                    Contact the workshop to discuss your vehicle and
+                    arrange the appropriate service.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- WHY -->
+<section class="special" id="why">
+
+    <div class="container">
+
+        <div class="center">
+
+            <div class="label">Why Choose Local?</div>
+
+            <h2>Dependable Automotive Support</h2>
+
+            <p>
+                A local workshop can make maintaining your vehicle
+                simpler, more convenient and more personal.
+            </p>
+
+        </div>
+
+        <div class="special-grid">
+
+            <div class="special-card">
+                <h3>Local & Convenient</h3>
+                <p>
+                    Located at 6 Herbert Street in Ravenshoe, making
+                    professional automotive assistance accessible to
+                    local drivers.
+                </p>
+            </div>
+
+            <div class="special-card">
+                <h3>Practical Service</h3>
+                <p>
+                    Focused on understanding the vehicle issue and
+                    providing an appropriate repair or maintenance
+                    solution.
+                </p>
+            </div>
+
+            <div class="special-card">
+                <h3>Everyday Vehicle Care</h3>
+                <p>
+                    From routine maintenance to unexpected repair needs,
+                    reliable vehicle care matters.
+                </p>
+            </div>
+
+            <div class="special-card">
+                <h3>Easy To Contact</h3>
+                <p>
+                    Call the workshop directly to discuss your vehicle's
+                    requirements and service needs.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CTA -->
+<section class="cta">
+
+    <div class="container">
+
+        <div class="label" style="color:#ffe1e1">
+            Need Automotive Assistance?
+        </div>
+
+        <h2>Let's Get Your Vehicle Back On The Road.</h2>
+
+        <p>
+            Contact R & I Automotive in Ravenshoe to discuss your
+            vehicle repair or servicing requirements.
+        </p>
+
+        <a href="tel:+61740976327"
+           class="btn"
+           style="background:white;color:#222">
+            Call The Workshop
+        </a>
+
+    </div>
+
+</section>
+
+<!-- TECHNIZEN PROMOTION -->
+<section class="tech">
+
+    <div class="tech-box">
+
+        <div class="ribbon">WEBSITE OFFER</div>
+
+        <div class="label">Website Opportunity</div>
+
+        <h2>LOVE THIS WEBSITE?</h2>
+
+        <p class="tech-text">
+            <strong style="font-size:19px;color:#222">
+                We Can Build A Similar Or Even Better Website For You.
+            </strong>
+            <br><br>
+
+            Give your automotive business a professional online presence
+            with your own custom domain such as
+            <strong>yourbusiness.com.au</strong>.
+            Let customers discover your services, find your location,
+            call you and send enquiries online.
+        </p>
+
+        <div class="price">
+            <small>Single Page Website</small>
+            <strong>Starting A$299</strong>
+            <small>for the first year · Renewal 60% OFF</small>
+        </div>
+
+        <div class="tech-list">
+
+            <div>✓ Your Own Domain</div>
+            <div>✓ Mobile Friendly</div>
+            <div>✓ Brand Protection</div>
+            <div>✓ 24×7 Online Presence</div>
+            <div>✓ Enquiry Management</div>
+            <div>✓ Online Visibility</div>
+            <div>✓ More Customer Enquiries</div>
+            <div>✓ Professional Business Image</div>
+            <div>✓ Custom Design</div>
+
+        </div>
+
+        <a
+            href="https://wa.me/61342361236?text=Hi%20Technizen%20Solutions%2C%20I%20am%20interested%20in%20a%20website%20like%20the%20R%20%26%20I%20Automotive%20sample."
+            target="_blank"
+            class="btn btn-red"
+        >
+            Build My Website
+        </a>
+
+    </div>
+
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+
+    <div class="container">
+
+        <div class="center">
+
+            <div class="label">Contact</div>
+
+            <h2>Visit R & I Automotive</h2>
+
+            <p style="color:#999">
+                Get in touch with the workshop for automotive repair
+                and servicing enquiries.
+            </p>
+
+        </div>
+
+        <div class="contact-grid">
+
+            <div class="contact-card">
+
+                <h3>R & I Automotive</h3>
+
+                <div class="row">
+                    <small>Address</small>
+                    6 Herbert St,<br>
+                    Ravenshoe QLD 4888,<br>
+                    Australia
+                </div>
+
+                <div class="row">
+                    <small>Phone</small>
+                    <a href="tel:+61740976327">
+                        +61 7 4097 6327
+                    </a>
+                </div>
+
+                <div class="row">
+                    <small>Email</small>
+                    <a href="mailto:riwinningautomotive@gmail.com">
+                        riwinningautomotive@gmail.com
+                    </a>
+                </div>
+
+                <div class="row">
+                    <small>Facebook</small>
+                    <a
+                        href="https://www.facebook.com/ravenshoe1/"
+                        target="_blank"
+                    >
+                        Visit Facebook Page
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="map">
+
+                <iframe
+                    src="https://www.google.com/maps?q=R%20%26%20I%20Automotive%2C%206%20Herbert%20St%2C%20Ravenshoe%20QLD%204888&output=embed"
+                    loading="lazy"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <div class="footer-bottom">
+
+        This sample website was developed by
+        <a href="https://technizen.in/">Technizen Solutions</a>.
+
+        <br><br>
+
+        Want a website like this for your business?
+        Contact Technizen Solutions.
+
+        <br><br>
+
+        © 2026 Technizen Solutions · Sample Website Concept
+
+    </div>
+
+</footer>
+
+<!-- TECHNIZEN WHATSAPP -->
+<a
+    class="whatsapp"
+    href="https://wa.me/61342361236?text=Hi%20Technizen%20Solutions%2C%20I%20am%20interested%20in%20getting%20a%20business%20website."
+    target="_blank"
+    aria-label="Contact Technizen Solutions on WhatsApp"
+>
+    ☎
+</a>
+
+<script>
+function closePopup(){
+    document.getElementById("popup").style.display="none";
+}
+</script>
+
+</body>
+</html>
